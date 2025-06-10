@@ -419,123 +419,121 @@ const EcommerceHomepage = () => {
             {/* Add Product Modal */}
             {isAddProductModalOpen && (
                 <div className="fixed inset-0 backdrop-blur-sm bg-transparent border border-red-500 flex items-center justify-center z-50 p-4">
-                    <ScrollFadeIn>
 
-                        <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
-                            <div className="flex justify-between items-center mb-4">
-                                <h2 className="text-xl font-bold">
-                                    {isEditMode ? 'Edit Product' : 'Add New Product'}
-                                </h2>
+                    <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-xl font-bold">
+                                {isEditMode ? 'Edit Product' : 'Add New Product'}
+                            </h2>
+                            <button
+                                onClick={() => {
+                                    setIsAddProductModalOpen(false);
+                                    setIsEditMode(false);
+                                    setEditingProduct(null);
+                                    setNewProduct({
+                                        id: '',
+                                        name: '',
+                                        price: '',
+                                        originalPrice: '',
+                                        category: '',
+                                        rating: 4.5,
+                                        reviews: 0,
+                                        image: '',
+                                        description: ''
+                                    });
+                                }}
+                                className="text-gray-500 hover:text-gray-700"
+                            >
+                                <X className="w-6 h-6" />
+                            </button>
+                        </div>
+
+                        <form className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+                                <input
+                                    type="text"
+                                    value={newProduct.name}
+                                    onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    placeholder="Enter product name"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
+                                <input
+                                    type="number"
+                                    value={newProduct.price}
+                                    onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+                                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    placeholder="Enter price"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Original Price (Optional)</label>
+                                <input
+                                    type="number"
+                                    value={newProduct.originalPrice}
+                                    onChange={(e) => setNewProduct({ ...newProduct, originalPrice: e.target.value })}
+                                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    placeholder="Enter original price"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                                <select
+                                    value={newProduct.category}
+                                    onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
+                                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                >
+                                    <option value="">Select Category</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Fashion">Fashion</option>
+                                    <option value="Home">Home</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Books">Books</option>
+                                    <option value="Beauty">Beauty</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea
+                                    value={newProduct.description}
+                                    onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
+                                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    placeholder="Enter product description"
+                                    rows="3"
+                                />
+                            </div>
+
+                            <div className="flex space-x-3 pt-4">
                                 <button
+                                    type="button"
+                                    onClick={isEditMode ? handleUpdateProduct : handleAddProduct}
+                                    className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md font-medium transition-colors duration-300"
+                                >
+                                    {isEditMode ? 'Update Product' : 'Add Product'}
+                                </button>
+                                <button
+                                    type="button"
                                     onClick={() => {
                                         setIsAddProductModalOpen(false);
                                         setIsEditMode(false);
                                         setEditingProduct(null);
-                                        setNewProduct({
-                                            id: '',
-                                            name: '',
-                                            price: '',
-                                            originalPrice: '',
-                                            category: '',
-                                            rating: 4.5,
-                                            reviews: 0,
-                                            image: '',
-                                            description: ''
-                                        });
                                     }}
-                                    className="text-gray-500 hover:text-gray-700"
+                                    className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 rounded-md font-medium transition-colors duration-300"
                                 >
-                                    <X className="w-6 h-6" />
+                                    Cancel
                                 </button>
                             </div>
-
-                            <form className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
-                                    <input
-                                        type="text"
-                                        value={newProduct.name}
-                                        onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-                                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-                                        placeholder="Enter product name"
-                                        required
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
-                                    <input
-                                        type="number"
-                                        value={newProduct.price}
-                                        onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
-                                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-                                        placeholder="Enter price"
-                                        required
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Original Price (Optional)</label>
-                                    <input
-                                        type="number"
-                                        value={newProduct.originalPrice}
-                                        onChange={(e) => setNewProduct({ ...newProduct, originalPrice: e.target.value })}
-                                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-                                        placeholder="Enter original price"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                                    <select
-                                        value={newProduct.category}
-                                        onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
-                                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-                                    >
-                                        <option value="">Select Category</option>
-                                        <option value="Electronics">Electronics</option>
-                                        <option value="Fashion">Fashion</option>
-                                        <option value="Home">Home</option>
-                                        <option value="Sports">Sports</option>
-                                        <option value="Books">Books</option>
-                                        <option value="Beauty">Beauty</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                                    <textarea
-                                        value={newProduct.description}
-                                        onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
-                                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-                                        placeholder="Enter product description"
-                                        rows="3"
-                                    />
-                                </div>
-
-                                <div className="flex space-x-3 pt-4">
-                                    <button
-                                        type="button"
-                                        onClick={isEditMode ? handleUpdateProduct : handleAddProduct}
-                                        className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md font-medium transition-colors duration-300"
-                                    >
-                                        {isEditMode ? 'Update Product' : 'Add Product'}
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            setIsAddProductModalOpen(false);
-                                            setIsEditMode(false);
-                                            setEditingProduct(null);
-                                        }}
-                                        className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 rounded-md font-medium transition-colors duration-300"
-                                    >
-                                        Cancel
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </ScrollFadeIn>
+                        </form>
+                    </div>
                 </div>
             )}
 
