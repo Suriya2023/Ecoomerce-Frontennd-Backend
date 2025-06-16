@@ -3,13 +3,13 @@ import { Search, ShoppingCart, User, Menu, X, Star, ArrowRight, Heart, Eye, Plus
 import { ChevronRight, Apple } from 'lucide-react';
 import ScrollFadeIn from './ScrollFadeIn'
 import apple from '../assets/apple.png';
-import spe from '../assets/spe.jpg'
+// import spe from '../assets/spe.jpg'
 import gamming from '../assets/gamming.png'
 import key from '../assets/key.png'
-import tv from '../assets/tv.png'
+// import tv from '../assets/tv.png'
 import mouse from '../assets/mouse.jpg'
 import chair from '../assets/char.png'
-import jbl from '../assets/jbl.png'
+// import jbl from '../assets/jbl.png'
 import jbl2 from '../assets/jbl2.png'
 import Bag from '../assets/bag.png'
 import jackat from '../assets/jc.png'
@@ -26,6 +26,39 @@ const EcommerceHomepage = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showProductDetails, setShowProductDetails] = useState(false);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+   
+
+    const calculateTimeLeft = () => {
+        const targetDate = new Date("2025-12-31T23:59:59");
+        const now = new Date();
+        const difference = targetDate - now;
+
+        let timeLeft = {
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0
+        };
+
+        if (difference > 0) {
+            timeLeft = {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / (1000 * 60)) % 60),
+                seconds: Math.floor((difference / 1000) % 60)
+            };
+        }
+
+        return timeLeft;
+    };
+
     const [newProduct, setNewProduct] = useState({
         id: '',
         name: '',
@@ -38,21 +71,7 @@ const EcommerceHomepage = () => {
         description: ''
     });
 
-    const calculateTimeLeft = () => {
-        const difference = +new Date("2025-06-16T00:00:00") - +new Date();
-        let timeLeft = {};
-
-        if (difference > 0) {
-            timeLeft = {
-                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                minutes: Math.floor((difference / 1000 / 60) % 60),
-                seconds: Math.floor((difference / 1000) % 60),
-            };
-        }
-        return timeLeft;
-    };
-
+   
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     useEffect(() => {
@@ -187,8 +206,8 @@ const EcommerceHomepage = () => {
     const flashSaleProducts = [
         { id: 1, name: 'Gaming Controller', price: 49.99, originalPrice: 79.99, image: gamming, rating: 4.5, reviews: 128 },
         { id: 2, name: 'Wireless Keyboard', price: 89.99, originalPrice: 129.99, image: key, rating: 4.7, reviews: 256 },
-        { id: 3, name: 'Smart Watch', price: 199.99, originalPrice: 299.99, image: tv, rating: 4.6, reviews: 89 },
-        { id: 4, name: 'Bluetooth Speaker', price: 39.99, originalPrice: 59.99, image: spe, rating: 4.4, reviews: 178 }
+        { id: 3, name: 'Smart Watch', price: 199.99, originalPrice: 299.99, image: key, rating: 4.6, reviews: 89 },
+        { id: 4, name: 'Bluetooth Speaker', price: 39.99, originalPrice: 59.99, image: key, rating: 4.4, reviews: 178 }
     ];
 
     const categories = [
